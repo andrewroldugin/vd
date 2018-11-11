@@ -34,15 +34,15 @@ std::string vd::FindKey(const std::string& text, int keylength) {
 }
 
 char vd::FindKeyChar(const std::string& text, int offset, int keylength) {
-  std::array<int, sizeof(char) << 7> counters;
+  std::array<int, 26> counters;
   counters.fill(0);
   for (std::size_t index = offset; index < text.size(); index += keylength) {
     char c = text[index];
     if (std::isalpha(c)) {
-      ++counters[std::tolower(c)];
+      ++counters[std::tolower(c) - 'a'];
     }
   }
   auto max_iter = std::max_element(counters.begin(), counters.end());
-  char probably_e = std::distance(counters.begin(), max_iter);
+  char probably_e = 'a' + std::distance(counters.begin(), max_iter);
   return probably_e - 'e' + 'A';
 }
