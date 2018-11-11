@@ -17,6 +17,7 @@ $(TESTS): src/main_tests
 	$(CP)
 
 src/main_tests: LDLIBS += -lgtest
+src/main_tests: src/main_tests.o src/vd/decipher_test.o src/vd/decipher.o
 
 test: $(TESTS)
 	@./$<
