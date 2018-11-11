@@ -35,7 +35,7 @@ std::string vd::FindKey(const std::string& text, int keylength) {
 }
 
 char vd::FindKeyChar(const std::string& text, int offset, int keylength) {
-  std::array<int, 26> counters;
+  std::array<int, ALPHABET_SIZE> counters;
   counters.fill(0);
   for (std::size_t index = offset; index < text.size(); index += keylength) {
     char c = text[index];

@@ -1,6 +1,8 @@
 #ifndef VD_DECIPHER_H
 #define VD_DECIPHER_H
 
+const int ALPHABET_SIZE = 26;
+
 #include <string>
 #include <vector>
 
