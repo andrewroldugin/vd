@@ -26,9 +26,10 @@ std::vector<std::string> vd::ReadLines(const std::string& filename) {
 }
 
 std::string vd::FindKey(const std::string& text, int keylength) {
-  std::string key(keylength, 'x');
+  std::string key;
+  key.reserve(keylength);
   for (int index = 0; index < keylength; ++index) {
-    key[index] = FindKeyChar(text, index, keylength);
+    key.push_back(FindKeyChar(text, index, keylength));
   }
   return key;
 }
