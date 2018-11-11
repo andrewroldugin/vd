@@ -35,3 +35,10 @@ TEST(DecipherTest, ReadLinesFailed) {
     EXPECT_EQ("Failed to read " + filename, e.what());
   }
 }
+
+TEST(DecipherTest, FindKey) {
+  auto text = ReadText("data/scuba_ciphered.txt");
+  EXPECT_EQ("SCUBA", FindKey(text, 5));
+  std::transform(text.begin(), text.end(), text.begin(), ::tolower);
+  EXPECT_EQ("SCUBA", FindKey(text, 5));
+}
