@@ -9,6 +9,8 @@
 #include <sstream>
 #include <stdexcept>
 
+#include <iostream>
+
 std::string vd::ReadText(const std::string& filename) {
   std::ifstream t(filename);
   if (t.fail()) throw std::runtime_error("Failed to read " + filename);
@@ -38,20 +40,23 @@ std::string vd::FindKey(const std::string& text, int keylength) {
 }
 
 char vd::FindKeyChar(const std::string& text, int offset, int keylength) {
-  std::array<int, ALPHABET_SIZE> counters;
+  std::array<double, ALPHABET_SIZE> freq;
   std::array<double, ALPHABET_SIZE> letter_freq = {
     8.167, 1.492, 2.782, 4.253, 12.702, 2.228, 2.015, 6.094, 6.966, 0.153,
     0.772, 4.025, 2.406, 6.749, 7.507, 1.929, 0.095, 5.987, 6.327, 9.056,
     2.758, 0.978, 2.360, 0.150, 1.974, 0.074
   };
-  counters.fill(0);
+  freq.fill(0.);
   int count = 0;
   for (std::size_t index = offset; index < text.size(); index += keylength) {
     char c = text[index];
     if (std::isalpha(c)) {
       ++count;
-      ++counters[std::tolower(c) - 'a'];
+      ++freq[std::tolower(c) - 'a'];
     }
+  }
+  for (auto it = freq.begin(); it != freq.end(); ++it) {
+    *it = *it / count * 100.;
   }
   int caeser_key = 0;
   double min_chi = std::numeric_limits<double>::max();
@@ -60,11 +65,9 @@ char vd::FindKeyChar(const std::string& text, int offset, int keylength) {
     // https://en.wikipedia.org/wiki/Chi-squared_test
     double chi = 0.;
     for (int index = 0; index < ALPHABET_SIZE; ++index) {
-      int actual = counters[(step + index) % ALPHABET_SIZE];
-      if (actual > 0) {
-        double expected = (letter_freq[index] / 100.) * count;
-        chi += pow(expected - actual, 2) / expected;
-      }
+      double actual = freq[(step + index) % ALPHABET_SIZE];
+      double expected = letter_freq[index];
+      chi += pow(expected - actual, 2) / expected;
     }
     if (chi < min_chi) {
       min_chi = chi;
