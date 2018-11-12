@@ -5,6 +5,7 @@ const int ALPHABET_SIZE = 26;
 const int MAX_KEY_LENGTH = 12;
 const double IC_ENGLISH = 1.73;
 
+#include <array>
 #include <string>
 #include <vector>
 
@@ -15,6 +16,9 @@ namespace vd {
   char FindKeyChar(const std::string& text, int offset, int keylength);
   int FindKeyLength(const std::string& text);
   double CalcIC(const std::string& text, int offset, int keylength);
+  template<typename T>
+  int CountLetters(const std::string& text, int offset, int keylength,
+                   std::array<T, ALPHABET_SIZE>& a);
 }
 
 #endif  // VD_DECIPHER_H
