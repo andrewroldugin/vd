@@ -42,3 +42,13 @@ TEST(DecipherTest, FindKey) {
   std::transform(text.begin(), text.end(), text.begin(), ::tolower);
   EXPECT_EQ("SCUBA", FindKey(text, 5));
 }
+
+TEST(DecipherTest, CalcIC) {
+  EXPECT_NEAR(2.31, CalcIC("Hello world!", 0, 1), 1e-2);
+  EXPECT_NEAR(1.7, CalcIC(ReadText("data/shak.txt"), 0, 1), 1e-2);
+}
+
+TEST(DecipherTest, FindKeyLength) {
+  std::string key = "SIMPSON";
+  EXPECT_EQ(key.size(), FindKeyLength(ReadText("data/shak_simpson.txt")));
+}
