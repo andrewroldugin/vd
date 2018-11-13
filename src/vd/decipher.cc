@@ -95,16 +95,16 @@ double vd::CalcIC(const std::string& text, int offset, int keylength) {
 
 int vd::FindKeyLength(const std::string& text) {
   int out = 0;
-  double min_freqoffset = std::numeric_limits<double>::max();
+  double min = std::numeric_limits<double>::max();
   for (int keylength = 1; keylength <= MAX_KEY_LENGTH; ++keylength) {
     double ic = 0.;
     for (int offset = 0; offset < keylength; ++offset) {
       ic += CalcIC(text, offset, keylength);
     }
     ic /= keylength;
-    double freqoffset = std::abs(IC_ENGLISH - ic);
-    if (freqoffset < min_freqoffset) {
-      min_freqoffset = freqoffset;
+    double x = std::abs(IC_ENGLISH - ic);
+    if (x < min) {
+      min = x;
       out = keylength;
     }
   }
