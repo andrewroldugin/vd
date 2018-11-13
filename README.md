@@ -1,9 +1,14 @@
 # VD - Vigenere decipher for english text
 ## Algorithm description
-https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher#Friedman_test
+[Friedman test](https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher#Friedman_test)
 ## How to use:
 ```
 ./vd <FILE>
+```
+Test files to decipher:
+```
+data/ciphered.txt (key: SCUBASCUBA, original text in data/clear.txt)
+data/shak_simpson.txt (key: SIMPSON, original text in data/shak.txt)
 ```
 ## How to build
 ### Requirements:
@@ -26,3 +31,5 @@ To build & run tests:
 ```
 make test
 ```
+## Limitations:
+Punctuation preserving isn't supported.
