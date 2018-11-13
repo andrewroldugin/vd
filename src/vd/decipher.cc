@@ -62,7 +62,7 @@ char vd::FindKeyChar(const std::string& text, int offset, int keylength) {
     2.758, 0.978, 2.360, 0.150, 1.974, 0.074
   };
   int count = CountLetters<double>(text, offset, keylength, freq);
-  for (auto it = freq.begin(); it != freq.end(); ++it) *it = *it / count * 100.;
+  for (auto& x:freq) x = x / count * 100.;
   int caeser_key = 0;
   double min_chi = std::numeric_limits<double>::max();
   for (int step = 0; step < ALPHABET_SIZE; ++step) {
