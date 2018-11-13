@@ -2,6 +2,7 @@
 #define VD_DECIPHER_H
 
 const int ALPHABET_SIZE = 26;
+const char ALPHABET_START = 'A';
 const int MAX_KEY_LENGTH = 12;
 const double IC_ENGLISH = 1.73;
 

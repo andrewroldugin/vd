@@ -15,8 +15,9 @@ std::string vd::DecipherText(const std::string& text, const std::string& key) {
   std::string out;
   out.reserve(text.size());
   const int ASIZE = ALPHABET_SIZE;
+  const int ASTART = ALPHABET_START;
   for (std::size_t i = 0; i < text.size(); ++i)
-    out.push_back('A' + (text[i] - key[i % key.size()] + ASIZE) % ASIZE);
+    out.push_back(ASTART + (text[i] - key[i % key.size()] + ASIZE) % ASIZE);
   return out;
 }
 
@@ -61,7 +62,7 @@ int vd::CountLetters(const std::string& text, int offset, int keylength,
                       std::array<T, ALPHABET_SIZE>& a) {
   a.fill(0);
   for (std::size_t index = offset; index < text.size(); index += keylength) {
-    ++a[text[index] - 'A'];
+    ++a[text[index] - ALPHABET_START];
   }
   return (text.size() - offset + keylength - 1) / keylength;
 }
@@ -94,7 +95,7 @@ char vd::FindKeyChar(const std::string& text, int offset, int keylength) {
       caeser_key = step;
     }
   }
-  return 'A' + caeser_key;
+  return ALPHABET_START + caeser_key;
 }
 
 // Calc index of coincidence
