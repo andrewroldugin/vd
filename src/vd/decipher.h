@@ -8,7 +8,6 @@ const double IC_ENGLISH = 1.73;
 
 #include <array>
 #include <string>
-#include <vector>
 
 namespace vd {
   std::string ReadText(const std::string& filename);
