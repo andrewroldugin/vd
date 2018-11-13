@@ -11,6 +11,14 @@
 
 #include <iostream>
 
+std::string vd::PrepareText(const std::string& text) {
+  std::string out;
+  // imperative way of filtermap
+  out.reserve(std::count_if(text.begin(), text.end(), isalpha));
+  for (auto x:text) if (std::isalpha(x)) out.push_back(std::toupper(x));
+  return out;
+}
+
 std::string vd::ReadText(const std::string& filename) {
   std::ifstream t(filename);
   if (t.fail()) throw std::runtime_error("Failed to read " + filename);

@@ -49,3 +49,7 @@ TEST(DecipherTest, FindKeyLength) {
   std::string key = "SIMPSON";
   EXPECT_EQ(key.size(), FindKeyLength(ReadText("data/shak_simpson.txt")));
 }
+
+TEST(DecipherTest, PrepareText) {
+  EXPECT_EQ("HELLOWORLD", PrepareText("Hello,._[]World!<>()"));
+}

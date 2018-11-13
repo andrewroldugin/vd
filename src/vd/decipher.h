@@ -19,6 +19,7 @@ namespace vd {
   template<typename T>
   int CountLetters(const std::string& text, int offset, int keylength,
                    std::array<T, ALPHABET_SIZE>& a);
+  std::string PrepareText(const std::string& text);
 }
 
 #endif  // VD_DECIPHER_H
