@@ -60,3 +60,17 @@ TEST(DecipherTest, DecipherText) {
   std::string expected = "TOBEORNOTTOBETHATISTHEQUESTION";
   EXPECT_EQ(expected, DecipherText(text, key));
 }
+
+TEST(FunctionalTest, DecipherText) {
+  auto text = PrepareText(ReadText("data/shak_simpson.txt"));
+  EXPECT_EQ(ReadText("data/shak.txt"),
+            DecipherText(text, FindKey(text, FindKeyLength(text))));
+}
+
+TEST(FunctionalTest, DecipherTextWithPunctuation) {
+  auto text = PrepareText(ReadText("data/ciphered.txt"));
+  // decipher with punctuation preserving isn't supported yet
+  // so compare result with prepared clear text
+  EXPECT_EQ(PrepareText(ReadText("data/clear.txt")),
+            DecipherText(text, FindKey(text, FindKeyLength(text))));
+}
