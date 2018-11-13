@@ -12,7 +12,6 @@ const double IC_ENGLISH = 1.73;
 
 namespace vd {
   std::string ReadText(const std::string& filename);
-  std::vector<std::string> ReadLines(const std::string& filename);
   std::string FindKey(const std::string& text, int keylength);
   char FindKeyChar(const std::string& text, int offset, int keylength);
   int FindKeyLength(const std::string& text);
