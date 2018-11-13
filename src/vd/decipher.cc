@@ -11,6 +11,15 @@
 
 #include <iostream>
 
+std::string vd::DecipherText(const std::string& text, const std::string& key) {
+  std::string out;
+  out.reserve(text.size());
+  const int ASIZE = ALPHABET_SIZE;
+  for (std::size_t i = 0; i < text.size(); ++i)
+    out.push_back('A' + (text[i] - key[i % key.size()] + ASIZE) % ASIZE);
+  return out;
+}
+
 std::string vd::PrepareText(const std::string& text) {
   std::string out;
   // imperative way of filtermap

@@ -53,3 +53,10 @@ TEST(DecipherTest, FindKeyLength) {
 TEST(DecipherTest, PrepareText) {
   EXPECT_EQ("HELLOWORLD", PrepareText("Hello,._[]World!<>()"));
 }
+
+TEST(DecipherTest, DecipherText) {
+  std::string key = "VIGENERE";
+  std::string text = "OWHIBVESOBUFRXYEOQYXUIHYZAZMBR";
+  std::string expected = "TOBEORNOTTOBETHATISTHEQUESTION";
+  EXPECT_EQ(expected, DecipherText(text, key));
+}
