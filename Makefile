@@ -7,6 +7,7 @@ TESTS = $(PRJ)_tests
 CP = cp $< $@
 CXXFLAGS = -Og -Wextra -Wall -Isrc -std=c++1z
 LDLIBS = -lstdc++
+OBJ = src/vd/decipher.o
 
 all: $(PRJ) $(TESTS)
 
@@ -16,8 +17,10 @@ $(PRJ): src/main
 $(TESTS): src/main_tests
 	$(CP)
 
+src/main: src/main.o $(OBJ)
+
 src/main_tests: LDLIBS += -lgtest
-src/main_tests: src/main_tests.o src/vd/decipher_test.o src/vd/decipher.o
+src/main_tests: src/main_tests.o src/vd/decipher_test.o $(OBJ)
 
 test: $(TESTS)
 	@./$<
