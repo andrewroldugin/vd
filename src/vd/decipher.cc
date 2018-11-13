@@ -61,9 +61,8 @@ template<typename T>
 int vd::CountLetters(const std::string& text, int offset, int keylength,
                       std::array<T, ALPHABET_SIZE>& a) {
   a.fill(0);
-  for (std::size_t index = offset; index < text.size(); index += keylength) {
+  for (std::size_t index = offset; index < text.size(); index += keylength)
     ++a[text[index] - ALPHABET_START];
-  }
   return (text.size() - offset + keylength - 1) / keylength;
 }
 
@@ -76,9 +75,7 @@ char vd::FindKeyChar(const std::string& text, int offset, int keylength) {
     2.758, 0.978, 2.360, 0.150, 1.974, 0.074
   };
   int count = CountLetters<double>(text, offset, keylength, freq);
-  for (auto it = freq.begin(); it != freq.end(); ++it) {
-    *it = *it / count * 100.;
-  }
+  for (auto it = freq.begin(); it != freq.end(); ++it) *it = *it / count * 100.;
   int caeser_key = 0;
   double min_chi = std::numeric_limits<double>::max();
   for (int step = 0; step < ALPHABET_SIZE; ++step) {
