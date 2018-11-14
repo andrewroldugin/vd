@@ -89,8 +89,8 @@ double vd::CalcIC(const std::string& text, int offset, int keylength) {
   std::array<int, ALPHABET_SIZE> counters;
   int count = CountLetters(text, offset, keylength, counters);
   return std::accumulate(counters.begin(), counters.end(), 0.,
-         [count](double sum, int x) {
-           return sum + (x / double(count)) * ((x - 1) / double(count - 1));
+         [count](double sum, double x) {
+           return sum + (x / count) * ((x - 1) / (count - 1));
          }) * ALPHABET_SIZE;
 }
 
