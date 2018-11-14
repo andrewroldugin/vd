@@ -44,9 +44,8 @@ std::string vd::FindKey(const std::string& text, int keylength) {
   return key;
 }
 
-template<typename T>
 int vd::CountLetters(const std::string& text, int offset, int keylength,
-                      std::array<T, ALPHABET_SIZE>& a) {
+                     std::array<int, ALPHABET_SIZE>& a) {
   a.fill(0);
   for (std::size_t index = offset; index < text.size(); index += keylength)
     ++a[text[index] - ALPHABET_START];
@@ -61,8 +60,10 @@ char vd::FindKeyChar(const std::string& text, int offset, int keylength) {
     0.772, 4.025, 2.406, 6.749, 7.507, 1.929, 0.095, 5.987, 6.327, 9.056,
     2.758, 0.978, 2.360, 0.150, 1.974, 0.074
   };
-  int count = CountLetters<double>(text, offset, keylength, freq);
-  for (auto& x:freq) x = x / count * 100.;
+  std::array<int, ALPHABET_SIZE> counters;
+  int count = CountLetters(text, offset, keylength, counters);
+  std::transform(counters.begin(), counters.end(), freq.begin(),
+                 [count](double x){return x / count * 100.;});
   int caeser_key = 0;
   double min_chi = std::numeric_limits<double>::max();
   for (int step = 0; step < ALPHABET_SIZE; ++step) {
@@ -86,10 +87,10 @@ char vd::FindKeyChar(const std::string& text, int offset, int keylength) {
 // For details see: https://en.wikipedia.org/wiki/Index_of_coincidence
 double vd::CalcIC(const std::string& text, int offset, int keylength) {
   std::array<int, ALPHABET_SIZE> counters;
-  int count = CountLetters<int>(text, offset, keylength, counters);
+  int count = CountLetters(text, offset, keylength, counters);
   return std::accumulate(counters.begin(), counters.end(), 0.,
-         [count](double sum, int x) {
-           return sum + (x / double(count)) * ((x - 1) / double(count - 1));
+         [count](double sum, double x) {
+           return sum + (x / count) * ((x - 1) / (count - 1));
          }) * ALPHABET_SIZE;
 }
 
